@@ -8,5 +8,5 @@ package fr.iutvalence.java.mp.themorpion;
  */
 public class Morpion
 {
-    
+        
 }
