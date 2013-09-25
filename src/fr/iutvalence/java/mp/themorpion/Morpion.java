@@ -1,12 +1,12 @@
 package fr.iutvalence.java.mp.themorpion;
-// TODO (fix) fix comment (this class creates nothing...)
+// TODO (FIXED) fix comment (this class creates nothing...)
 /**
- * This class create a new game of tic-tac-toe
+ * 
+ * This class exponent a tic-tac-toe
  * @author andrvale
  *
  */
 public class Morpion
 {
-
     
 }
