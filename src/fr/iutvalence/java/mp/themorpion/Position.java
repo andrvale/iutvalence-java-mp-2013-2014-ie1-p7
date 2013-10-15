@@ -30,4 +30,18 @@ public class Position
         this.column = y;
         
     }
+    
+    public int getRow()
+    {
+        return this.row;
+        
+        
+    }
+    
+    public int getColumn()
+    {
+        return this.column;
+        
+        
+    }
     }
