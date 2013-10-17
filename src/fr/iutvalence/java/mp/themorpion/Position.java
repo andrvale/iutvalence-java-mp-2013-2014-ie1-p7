@@ -17,7 +17,7 @@ public class Position
     /**
      * Constant corresponding column of the grid
      */
-    public int column;
+    private int column;
     
     /**
      * Function who 
@@ -30,13 +30,18 @@ public class Position
         this.column = y;
         
     }
-    
+    /**
+     * Return row of position
+     */
     public int getRow()
     {
         return this.row;
         
         
     }
+    /**
+     * Return column of position
+     */
     
     public int getColumn()
     {

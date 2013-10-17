@@ -1,6 +1,6 @@
 package fr.iutvalence.java.mp.themorpion;
 
-import java.util.Random;
+
 
 
 /**
@@ -16,12 +16,12 @@ public class TicTacToe
     /**
      * Constant corresponding to circle mark
      */
-    public final static int CIRCLE = 10000;
+    public final static int CIRCLE = 2;
     
     /**
      * Constant corresponding to cross mark
      */
-    public final static int CROSS = 20000;
+    public final static int CROSS = 1;
     
     /**
      * Constant corresponding to VOID mark
@@ -41,18 +41,19 @@ public class TicTacToe
      * first player
      */
 
-    Player playerOne;
+    private Player playerOne;
 
 
     /**
      * second player
      */
 
-    Player playerTwo;
+    private Player playerTwo;
     
-    
-    
-
+    /**
+     *  Eihter NOTHING, either CROSS, either CIRCLE
+     */
+    private int gagnant;
 
     // TODO (fixed) document parameters
 
@@ -79,33 +80,39 @@ public class TicTacToe
         this.playerTwo = new Player(CIRCLE);
          
         System.out.println("New game of TicTacToe !");
-        //tant que le joueur ne retourne pas une valeur possible faire demander position
         
     }
     
     /**
-     * 
+     * the game begin
      * 
      */
     public void play()
     {
         Position playerPos;
+        int round = 9;
 
-        while(this.checkVictory() == false)        {
-                  
-           playerPos = playerOne.askPosition();
+        while(this.checkVictory() == false || round != 0)   
+        {
+              
+           playerPos = this.playerOne.askPosition();
            while(this.checkPosition(playerPos) == false)
            {
-               playerPos = playerOne.askPosition();
+               playerPos = this.playerOne.askPosition();
+              
            }
-           //rentrer mark dans tableau
-           playerPos = playerTwo.askPosition();
-           while(this.checkPosition(playerPos) == false)
+           placeMark(playerPos, this.playerOne.getId());
+           round--;
+           if (this.checkVictory() == false)
            {
-               playerPos = playerTwo.askPosition();
+               playerPos = this.playerTwo.askPosition();
+               while(this.checkPosition(playerPos) == false)
+               {
+                   playerPos = this.playerTwo.askPosition();
+               }
+               placeMark(playerPos, this.playerTwo.getId());
+               round--;
            }
-           //rentrer mark dans tableau
-           
         }
         
     }
@@ -117,9 +124,13 @@ public class TicTacToe
      */
     private boolean checkPosition(Position p)
     {
-       boolean youCan;
-        
-        return youCan;
+       boolean youCan = false;
+       if (this.grid[p.getRow()][p.getColumn()] == NOTHING)
+       {
+           youCan = true;
+       }       
+       
+       return youCan;
         
     }
     
@@ -128,12 +139,49 @@ public class TicTacToe
      * 
      */
     private boolean checkVictory()
-    {
-       boolean end;
+    { 
+       boolean victory = false;
+       int vic;
+       int i,j = 0;
        
-       return end;
+       for(i = 0; i < 3; i++)
+       {
+           vic = this.grid[i][j] * this.grid[i][j+1] * this.grid[i][j+2];
+          if (vic == 1 || vic == 8)
+          {
+              victory = true;
+              this.gagnant = this.grid[i][j];
+              return victory;
+          }
+       }
+       i = 0;
+       for(j = 0; j < 3; j++)
+       {
+           vic = this.grid[i][j] * this.grid[i+1][j] * this.grid[i+2][j];
+          if (vic == 1 || vic == 8)
+          {
+              victory = true;
+              this.gagnant = this.grid[i][j];
+              return victory;
+          }
+       }
+       
+       return victory;
+       
         
-    }    
+    }  
+    
+    /**
+     * Place a mark in the grid on the wanted position
+     * @param p choose by player
+     * @param mark value of player
+     */
+    private void placeMark(Position p, int mark)
+    {
+       
     }
+  
+    }
+
 
 
