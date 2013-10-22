@@ -1,8 +1,5 @@
 package fr.iutvalence.java.mp.themorpion;
 
-
-
-
 /**
  * 
  * This class represents a Tic-Tac-Toe game
@@ -34,7 +31,7 @@ public class TicTacToe
      * 9 cases are available corresponding to cases of table
      * 
      */
-    private int grid[][];
+    private int[][] grid;
 
     
     /**
@@ -51,11 +48,9 @@ public class TicTacToe
     private Player playerTwo;
     
     /**
-     *  Eihter NOTHING, either CROSS, either CIRCLE
+     *  Either NOTHING, either CROSS, either CIRCLE
      */
-    private int gagnant;
-
-    // TODO (fixed) document parameters
+    private int winner;
 
     /**
      *  It initializes a new game
@@ -66,6 +61,7 @@ public class TicTacToe
     {
         int i, j;
         
+        // TODO (fix) declare hard-coded values as constants
         this.grid = new int[3][3];
         
         for(i = 0; i < 3; i++)
@@ -90,8 +86,11 @@ public class TicTacToe
     public void play()
     {
         Position playerPos;
+        // TODO (fix) declare hard-coded values as constants
         int round = 9;
 
+        // TODO (fix) simplify test
+        // TODO (fix) simplify the loop avoiding duplicating code for the 2 players
         while(this.checkVictory() == false || round != 0)   
         {
               
@@ -117,13 +116,14 @@ public class TicTacToe
         
     }
     
-    
+    // TODO (fix) finish writing comment
     /**
      * Return true if we can put a mark in the grid
      * @param p choose by player
      */
     private boolean checkPosition(Position p)
     {
+       // TODO (fix) simplify
        boolean youCan = false;
        if (this.grid[p.getRow()][p.getColumn()] == NOTHING)
        {
@@ -150,7 +150,7 @@ public class TicTacToe
           if (vic == 1 || vic == 8)
           {
               victory = true;
-              this.gagnant = this.grid[i][j];
+              this.winner = this.grid[i][j];
               return victory;
           }
        }
@@ -161,7 +161,7 @@ public class TicTacToe
           if (vic == 1 || vic == 8)
           {
               victory = true;
-              this.gagnant = this.grid[i][j];
+              this.winner = this.grid[i][j];
               return victory;
           }
        }
@@ -173,7 +173,7 @@ public class TicTacToe
       if (vic == 1 || vic == 8)
       {
           victory = true;
-          this.gagnant = this.grid[i][j];
+          this.winner = this.grid[i][j];
           return victory;
       }
       i = 0;
@@ -182,7 +182,7 @@ public class TicTacToe
       if (vic == 1 || vic == 8)
       {
           victory = true;
-          this.gagnant = this.grid[i][j];
+          this.winner = this.grid[i][j];
           return victory;
       }
       
