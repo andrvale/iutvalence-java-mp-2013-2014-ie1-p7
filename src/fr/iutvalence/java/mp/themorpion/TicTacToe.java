@@ -166,6 +166,28 @@ public class TicTacToe
           }
        }
        
+              
+      i = 0;
+      j = 0;
+      vic = this.grid[i][j] * this.grid[i+1][j+1] * this.grid[i+2][j+2];
+      if (vic == 1 || vic == 8)
+      {
+          victory = true;
+          this.gagnant = this.grid[i][j];
+          return victory;
+      }
+      i = 0;
+      j = 2;
+      vic = this.grid[i][j] * this.grid[i+1][j-1] * this.grid[i+2][j-2];
+      if (vic == 1 || vic == 8)
+      {
+          victory = true;
+          this.gagnant = this.grid[i][j];
+          return victory;
+      }
+      
+  
+   
        return victory;
        
         
