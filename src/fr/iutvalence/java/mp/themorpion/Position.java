@@ -10,21 +10,29 @@ package fr.iutvalence.java.mp.themorpion;
 
 public class Position
 {
-    // TODO (fix) this is not a constant
+    // TODO (fixed) this is not a constant
     /**
-     * Constant corresponding row of the grid
+     * integer corresponding number of row of the grid
      */
     private int row;
 
-    // TODO (fix) this is not a constant
+    // TODO (fixed) this is not a constant
     /**
-     * Constant corresponding column of the grid
+     * integer corresponding number of column of the grid
      */
     private int column;
-
-    // TODO (fix) function who or doctor Who?
+    
     /**
-     * Function who
+     * Constructor of position class
+     */
+    public Position()
+    {
+        
+    }
+
+    // TODO (fixed) function who or doctor Who?
+    /**
+     * Constructor of position class with over-parameters
      * 
      * @param x
      *            x who correspond to row
@@ -37,9 +45,9 @@ public class Position
         this.column = y;
     }
 
-    // TODO (fix) finish writing comment
+    // TODO (fixed) finish writing comment
     /**
-     * Return row of position
+     * @return integer corresponding to row of position
      */
     public int getRow()
     {
@@ -47,12 +55,21 @@ public class Position
     }
 
     /**
-     * Return column of position
+     * @return integer corresponding to column of position
      */
-    // TODO (fix) finish writing comment
+    // TODO (fixed) finish writing comment
     public int getColumn()
     {
         return this.column;
 
+    }
+   
+    /**
+     * Redefinition of toString
+     * @return String
+     */
+    public String toString()
+    {
+        return "(" + this.row + "," + this.column + ")";
     }
 }

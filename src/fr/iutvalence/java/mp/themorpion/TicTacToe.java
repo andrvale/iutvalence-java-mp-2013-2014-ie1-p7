@@ -24,14 +24,19 @@ public class TicTacToe
      * Constant corresponding to VOID mark
      */
     public final static int NOTHING = 0;
+
+    public static final int NUMBER_OF_LINES = 3;
+    
+    public static final int NUMBER_OF_COLUMNS = 3;
     
 
     /**
      * This is the representation of the grid of Tic Tac Toe
-     * 9 cases are available corresponding to cases of table
+     * NUMBER_OF_LINES*NUMBER_OF_COLUMNS cells are available corresponding to cases of table
      * 
      */
-    private int[][] grid;
+    //TODO (fixed) initialize field in constructor
+    private final int[][] grid; 
 
     
     /**
@@ -61,19 +66,19 @@ public class TicTacToe
     {
         int i, j;
         
-        // TODO (fix) declare hard-coded values as constants
-        this.grid = new int[3][3];
+        // TODO (fixed) declare hard-coded values as constants
+       this.grid = new int[NUMBER_OF_LINES][NUMBER_OF_COLUMNS] ;
         
-        for(i = 0; i < 3; i++)
+        for(i = 0; i < NUMBER_OF_LINES; i++)
         {
-            for(j = 0; j < 3 ; j++)
+            for(j = 0; j < NUMBER_OF_COLUMNS ; j++)
             {
                 this.grid[i][j] = NOTHING;
             }
         }
         
-        this.playerOne = new Player(CROSS);
-        this.playerTwo = new Player(CIRCLE);
+        this.playerOne = new Player();
+        this.playerTwo = new Player();
          
         System.out.println("New game of TicTacToe !");
         
@@ -85,58 +90,79 @@ public class TicTacToe
      */
     public void play()
     {
-        Position playerPos;
-        // TODO (fix) declare hard-coded values as constants
-        int round = 9;
-
-        // TODO (fix) simplify test
+        Position playerPos = new Position();
+        // TODO (fixed) declare hard-coded values as constants
+        int round = NUMBER_OF_LINES*NUMBER_OF_COLUMNS;
+        int playedPlayer = 1;
+        // TODO (fixed) simplify test
         // TODO (fix) simplify the loop avoiding duplicating code for the 2 players
-        while(this.checkVictory() == false || round != 0)   
+        while(!(this.checkVictory()) && round > 0)   
         {
-              
-           playerPos = this.playerOne.askPosition();
-           while(this.checkPosition(playerPos) == false)
-           {
-               playerPos = this.playerOne.askPosition();
-              
-           }
-           placeMark(playerPos, this.playerOne.getId());
-           round--;
-           if (this.checkVictory() == false)
-           {
-               playerPos = this.playerTwo.askPosition();
-               while(this.checkPosition(playerPos) == false)
+                   
+               do
                {
-                   playerPos = this.playerTwo.askPosition();
+                       if(playedPlayer == 1)
+                       {
+                           try
+                           {
+                               playerPos = this.playerOne.askPosition();
+                               
+                           }
+                           catch(OutOfBoundPositionException e)
+                           {
+                               System.out.println(e.getMessage());
+                           }
+                           
+                       }
+                       else
+                       { 
+                           try
+                           {
+                               playerPos = this.playerTwo.askPosition();
+                           }
+                           catch(OutOfBoundPositionException e)
+                           {
+                               System.out.println(e.getMessage());
+                           }
+                       }
+                       
+               }while (this.checkPosition(playerPos) == false);
+               
+               if(playedPlayer == 2)
+               {    
+                   placeMark(playerPos, CIRCLE);
+                   playedPlayer--;
+                   round--;
                }
-               placeMark(playerPos, this.playerTwo.getId());
-               round--;
-           }
+               else
+               {
+                   placeMark(playerPos, CROSS);
+                   playedPlayer++;
+                   round--;
+                   
+              
+               }
         }
-        
+        System.out.println("La victoire revient au joueur : " + this.winner + " en "+ (9 - round) + " rounds");
     }
     
-    // TODO (fix) finish writing comment
+    // TODO (fixed) finish writing comment
     /**
      * Return true if we can put a mark in the grid
      * @param p choose by player
+     * @return boolean 
      */
+    
     private boolean checkPosition(Position p)
     {
-       // TODO (fix) simplify
-       boolean youCan = false;
-       if (this.grid[p.getRow()][p.getColumn()] == NOTHING)
-       {
-           youCan = true;
-       }       
-       
-       return youCan;
+       // TODO (fixed) simplify   
+       return (this.grid[p.getRow()][p.getColumn()] == NOTHING);
         
     }
     
     /**
      * Return true if the game is end
-     * 
+     * @return boolean 
      */
     private boolean checkVictory()
     { 
@@ -144,7 +170,7 @@ public class TicTacToe
        int vic;
        int i,j = 0;
        
-       for(i = 0; i < 3; i++)
+       for(i = 0; i < NUMBER_OF_LINES; i++)
        {
            vic = this.grid[i][j] * this.grid[i][j+1] * this.grid[i][j+2];
           if (vic == 1 || vic == 8)
@@ -155,7 +181,7 @@ public class TicTacToe
           }
        }
        i = 0;
-       for(j = 0; j < 3; j++)
+       for(j = 0; j < NUMBER_OF_COLUMNS; j++)
        {
            vic = this.grid[i][j] * this.grid[i+1][j] * this.grid[i+2][j];
           if (vic == 1 || vic == 8)
@@ -187,7 +213,7 @@ public class TicTacToe
       }
       
   
-   
+       this.winner = NOTHING;
        return victory;
        
         
@@ -200,6 +226,8 @@ public class TicTacToe
      */
     private void placeMark(Position p, int mark)
     {
+        this.grid[p.getRow()][p.getColumn()] = mark;
+        System.out.println("(" + p.getRow() + "," + p.getColumn() +")");
        
     }
   

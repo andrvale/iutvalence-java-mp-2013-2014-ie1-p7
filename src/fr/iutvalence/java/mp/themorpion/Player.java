@@ -1,5 +1,7 @@
 package fr.iutvalence.java.mp.themorpion;
 
+import java.util.Random;
+
 /**
  * 
  * This class describes a player with his attributes
@@ -10,46 +12,52 @@ package fr.iutvalence.java.mp.themorpion;
 
 public class Player
 {
-    // TODO (think about it) this field seems useless
-    /**
-     * Identifier of the player (value = CROSS or CIRCLE)
-     */
-    private int id;
+    // TODO (think about it)(fixed) this field seems useless
+  
 
     /**
      * The created player have an id, a score and a mark
      * 
-     * @param id
-     *            id is the identifiant of the player
+     * 
      * 
      */
 
-    public Player(int id)
+    public Player()
     {
-        this.id = id;
+      
     }
 
-    // TODO (fix) finish writing comment
+    // TODO (fixed) finish writing comment
+    
+   
+
+    // TODO (fixed) finish writing comment
     /**
-     * 
-     * Return id
+     * Check if position wanted by the player is between 1 and 9
+     * @return position wanted by the player
      * 
      */
-    public int getId()
-    {
-        return this.id;
-    }
+    public Position askPosition() throws OutOfBoundPositionException
+    {   
+        int randColumn;
+        int randLine;
+        Random rand = new Random();
+        randColumn = rand.nextInt(TicTacToe.NUMBER_OF_COLUMNS);        
+        randLine = rand.nextInt(TicTacToe.NUMBER_OF_LINES);
+        
+        Position pos = new Position(randLine, randColumn);
+        
+        {  
+            if(pos.getRow()*pos.getColumn() < 0 || pos.getRow()*pos.getColumn() > 4)
+              throw new OutOfBoundPositionException(pos);
+            else
+            {   
+                
+                return pos;
+                
+            }
+          }
 
-    // TODO (fix) finish writing comment
-    /**
-     * 
-     * Return position wanted by the player
-     * 
-     */
-    public Position askPosition()
-    {
-        Position pos;
-
-        return pos;
+        
     }
 }
