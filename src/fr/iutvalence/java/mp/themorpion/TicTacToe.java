@@ -14,224 +14,219 @@ public class TicTacToe
      * Constant corresponding to circle mark
      */
     public final static int CIRCLE = 2;
-    
+
     /**
      * Constant corresponding to cross mark
      */
     public final static int CROSS = 1;
-    
+
     /**
      * Constant corresponding to VOID mark
      */
     public final static int NOTHING = 0;
 
+    // TODO (fix) write comment
     public static final int NUMBER_OF_LINES = 3;
-    
+
+    // TODO (fix) write comment
     public static final int NUMBER_OF_COLUMNS = 3;
-    
 
     /**
      * This is the representation of the grid of Tic Tac Toe
-     * NUMBER_OF_LINES*NUMBER_OF_COLUMNS cells are available corresponding to cases of table
+     * NUMBER_OF_LINES*NUMBER_OF_COLUMNS cells are available corresponding to
+     * cases of table
      * 
      */
-    //TODO (fixed) initialize field in constructor
-    private final int[][] grid; 
+    private final int[][] grid;
 
-    
+    // TODO (fix) replacing these two fields by an array should simplify the
+    // rest of the code
     /**
      * first player
      */
-
     private Player playerOne;
-
 
     /**
      * second player
      */
 
     private Player playerTwo;
-    
+
     /**
-     *  Either NOTHING, either CROSS, either CIRCLE
+     * Either NOTHING, either CROSS, either CIRCLE
      */
+    // TODO (fix) looks like a local variable instead of a field
     private int winner;
 
     /**
-     *  It initializes a new game
-     *  A void grid is create
+     * It initializes a new game A void grid is create
      */
 
     public TicTacToe()
     {
-        int i, j;
-        
-        // TODO (fixed) declare hard-coded values as constants
-       this.grid = new int[NUMBER_OF_LINES][NUMBER_OF_COLUMNS] ;
-        
-        for(i = 0; i < NUMBER_OF_LINES; i++)
+        this.grid = new int[NUMBER_OF_LINES][NUMBER_OF_COLUMNS];
+
+        for (int lineNumber = 0; lineNumber < NUMBER_OF_LINES; lineNumber++)
         {
-            for(j = 0; j < NUMBER_OF_COLUMNS ; j++)
+            for (int columnNumber = 0; columnNumber < NUMBER_OF_COLUMNS; columnNumber++)
             {
-                this.grid[i][j] = NOTHING;
+                this.grid[lineNumber][columnNumber] = NOTHING;
             }
         }
-        
+
         this.playerOne = new Player();
         this.playerTwo = new Player();
-         
+
+        // TODO (fix) remove this debug message
         System.out.println("New game of TicTacToe !");
-        
     }
-    
+
     /**
      * the game begin
      * 
      */
     public void play()
     {
-        Position playerPos = new Position();
-        // TODO (fixed) declare hard-coded values as constants
-        int round = NUMBER_OF_LINES*NUMBER_OF_COLUMNS;
+        Position playerPos = null;
+        int round = NUMBER_OF_LINES * NUMBER_OF_COLUMNS;
         int playedPlayer = 1;
-        // TODO (fixed) simplify test
-        // TODO (fix) simplify the loop avoiding duplicating code for the 2 players
-        while(!(this.checkVictory()) && round > 0)   
+        while (!(this.isCurrentPlayerHasWon()) && round > 0)
         {
-                   
-               do
-               {
-                       if(playedPlayer == 1)
-                       {
-                           try
-                           {
-                               playerPos = this.playerOne.askPosition();
-                               
-                           }
-                           catch(OutOfBoundPositionException e)
-                           {
-                               System.out.println(e.getMessage());
-                           }
-                           
-                       }
-                       else
-                       { 
-                           try
-                           {
-                               playerPos = this.playerTwo.askPosition();
-                           }
-                           catch(OutOfBoundPositionException e)
-                           {
-                               System.out.println(e.getMessage());
-                           }
-                       }
-                       
-               }while (this.checkPosition(playerPos) == false);
-               
-               if(playedPlayer == 2)
-               {    
-                   placeMark(playerPos, CIRCLE);
-                   playedPlayer--;
-                   round--;
-               }
-               else
-               {
-                   placeMark(playerPos, CROSS);
-                   playedPlayer++;
-                   round--;
-                   
-              
-               }
+            // TODO (fix) if you can not simplify this, move it to an external method
+            // to make this one more readable
+            do
+            {
+                if (playedPlayer == 1)
+                {
+                    try
+                    {
+                        playerPos = this.playerOne.askPosition();
+
+                    }
+                    catch (OutOfBoundPositionException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+                else
+                {
+                    try
+                    {
+                        playerPos = this.playerTwo.askPosition();
+                    }
+                    catch (OutOfBoundPositionException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+            }
+            while (this.checkPosition(playerPos) == false);
+
+            // TODO (fix) (same as previous)
+            if (playedPlayer == 2)
+            {
+                placeMark(playerPos, CIRCLE);
+                playedPlayer--;
+                round--;
+            }
+            else
+            {
+                placeMark(playerPos, CROSS);
+                playedPlayer++;
+                round--;
+
+            }
         }
-        System.out.println("La victoire revient au joueur : " + this.winner + " en "+ (9 - round) + " rounds");
+        System.out.println("La victoire revient au joueur : " + this.winner + " en " + (9 - round) + " rounds");
     }
-    
+
     // TODO (fixed) finish writing comment
     /**
      * Return true if we can put a mark in the grid
-     * @param p choose by player
-     * @return boolean 
+     * 
+     * @param position
+     *            choose by player
+     * @return boolean
      */
-    
-    private boolean checkPosition(Position p)
+
+    private boolean checkPosition(Position position)
     {
-       // TODO (fixed) simplify   
-       return (this.grid[p.getRow()][p.getColumn()] == NOTHING);
-        
+        return (this.grid[position.getRow()][position.getColumn()] == NOTHING);
     }
-    
+
     /**
      * Return true if the game is end
-     * @return boolean 
+     * 
+     * @return boolean
      */
-    private boolean checkVictory()
-    { 
-       boolean victory = false;
-       int vic;
-       int i,j = 0;
-       
-       for(i = 0; i < NUMBER_OF_LINES; i++)
-       {
-           vic = this.grid[i][j] * this.grid[i][j+1] * this.grid[i][j+2];
-          if (vic == 1 || vic == 8)
-          {
-              victory = true;
-              this.winner = this.grid[i][j];
-              return victory;
-          }
-       }
-       i = 0;
-       for(j = 0; j < NUMBER_OF_COLUMNS; j++)
-       {
-           vic = this.grid[i][j] * this.grid[i+1][j] * this.grid[i+2][j];
-          if (vic == 1 || vic == 8)
-          {
-              victory = true;
-              this.winner = this.grid[i][j];
-              return victory;
-          }
-       }
-       
-              
-      i = 0;
-      j = 0;
-      vic = this.grid[i][j] * this.grid[i+1][j+1] * this.grid[i+2][j+2];
-      if (vic == 1 || vic == 8)
-      {
-          victory = true;
-          this.winner = this.grid[i][j];
-          return victory;
-      }
-      i = 0;
-      j = 2;
-      vic = this.grid[i][j] * this.grid[i+1][j-1] * this.grid[i+2][j-2];
-      if (vic == 1 || vic == 8)
-      {
-          victory = true;
-          this.winner = this.grid[i][j];
-          return victory;
-      }
-      
-  
-       this.winner = NOTHING;
-       return victory;
-       
-        
-    }  
-    
+    private boolean isCurrentPlayerHasWon()
+    {
+        boolean victory = false;
+        int vic;
+        int i, j = 0;
+
+        for (i = 0; i < NUMBER_OF_LINES; i++)
+        {
+            vic = this.grid[i][j] * this.grid[i][j + 1] * this.grid[i][j + 2];
+            // TODO (fix) declare hard-coded values as constants
+            if (vic == 1 || vic == 8)
+            {
+                victory = true;              
+                this.winner = this.grid[i][j];
+                return victory;
+            }
+        }
+        i = 0;
+        for (j = 0; j < NUMBER_OF_COLUMNS; j++)
+        {
+            vic = this.grid[i][j] * this.grid[i + 1][j] * this.grid[i + 2][j];
+            if (vic == 1 || vic == 8)
+            {
+                victory = true;
+                this.winner = this.grid[i][j];
+                return victory;
+            }
+        }
+
+        i = 0;
+        j = 0;
+        vic = this.grid[i][j] * this.grid[i + 1][j + 1] * this.grid[i + 2][j + 2];
+        if (vic == 1 || vic == 8)
+        {
+            victory = true;
+            this.winner = this.grid[i][j];
+            return victory;
+        }
+        i = 0;
+        j = 2;
+        vic = this.grid[i][j] * this.grid[i + 1][j - 1] * this.grid[i + 2][j - 2];
+        if (vic == 1 || vic == 8)
+        {
+            victory = true;
+            this.winner = this.grid[i][j];
+            return victory;
+        }
+
+        this.winner = NOTHING;
+        return victory;
+
+    }
+
     /**
      * Place a mark in the grid on the wanted position
-     * @param p choose by player
-     * @param mark value of player
+     * 
+     * @param position
+     *            choose by player
+     * @param mark
+     *            value of player
      */
-    private void placeMark(Position p, int mark)
+    private void placeMark(Position position, int mark)
     {
-        this.grid[p.getRow()][p.getColumn()] = mark;
-        System.out.println("(" + p.getRow() + "," + p.getColumn() +")");
-       
-    }
-  
+        this.grid[position.getRow()][position.getColumn()] = mark;
+        System.out.println("(" + position.getRow() + "," + position.getColumn() + ")");
+
     }
 
-
-
+}
