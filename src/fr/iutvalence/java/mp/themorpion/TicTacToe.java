@@ -11,26 +11,40 @@ package fr.iutvalence.java.mp.themorpion;
 public class TicTacToe
 {
     /**
-     * Constant corresponding to circle mark
+     *Constant corresponding to an array of mark's values
      */
-    public final static int CIRCLE = 2;
+    public final static int[] TAB_MARK = new int[]{1,2};
 
     /**
      * Constant corresponding to cross mark
      */
-    public final static int CROSS = 1;
+    //public final static int CROSS = 1;
 
     /**
      * Constant corresponding to VOID mark
      */
     public final static int NOTHING = 0;
 
-    // TODO (fix) write comment
+    // TODO (fixed) write comment
+    /**
+     * Constant corresponding to number of lines
+     */
     public static final int NUMBER_OF_LINES = 3;
 
-    // TODO (fix) write comment
+    // TODO (fixed) write comment
+    /**
+     * Constant corresponding to number of columns
+     */
     public static final int NUMBER_OF_COLUMNS = 3;
-
+    /**
+     * Constant corresponding to player1 victory
+     */
+    public static final int PLAYER1_WIN = 1;
+    /**
+     * Constant corresponding to player2 victory
+     */
+    public static final int PLAYER2_WIN = 8;
+    
     /**
      * This is the representation of the grid of Tic Tac Toe
      * NUMBER_OF_LINES*NUMBER_OF_COLUMNS cells are available corresponding to
@@ -39,24 +53,26 @@ public class TicTacToe
      */
     private final int[][] grid;
 
-    // TODO (fix) replacing these two fields by an array should simplify the
+    // TODO (fixed) replacing these two fields by an array should simplify the
     // rest of the code
+    
+    private Player[] tabPlayer = new Player[2];
     /**
      * first player
      */
-    private Player playerOne;
+   // private Player playerOne;
 
     /**
      * second player
      */
 
-    private Player playerTwo;
+   // private Player playerTwo;
 
     /**
      * Either NOTHING, either CROSS, either CIRCLE
      */
-    // TODO (fix) looks like a local variable instead of a field
-    private int winner;
+    // TODO (fixed) looks like a local variable instead of a field
+   
 
     /**
      * It initializes a new game A void grid is create
@@ -74,72 +90,62 @@ public class TicTacToe
             }
         }
 
-        this.playerOne = new Player();
-        this.playerTwo = new Player();
+        this.tabPlayer[0] = new Player();
+        this.tabPlayer[1]= new Player();
 
-        // TODO (fix) remove this debug message
-        System.out.println("New game of TicTacToe !");
+        // TODO (fixed) remove this debug message
+        //System.out.println("New game of TicTacToe !");
     }
 
     /**
      * the game begin
      * 
+     * 
      */
     public void play()
     {
         Position playerPos = null;
+        boolean posChecked = false;
         int round = NUMBER_OF_LINES * NUMBER_OF_COLUMNS;
-        int playedPlayer = 1;
+        int playedPlayer = 0;
         while (!(this.isCurrentPlayerHasWon()) && round > 0)
         {
-            // TODO (fix) if you can not simplify this, move it to an external method
+            // TODO (fixed) if you can not simplify this, move it to an external method
             // to make this one more readable
             do
-            {
-                if (playedPlayer == 1)
+            {   
+                
+                playerPos = this.tabPlayer[playedPlayer].askPosition();
+                System.out.println("###"+playerPos);
+                try 
                 {
-                    try
-                    {
-                        playerPos = this.playerOne.askPosition();
-
-                    }
-                    catch (OutOfBoundPositionException e)
-                    {
-                        System.out.println(e.getMessage());
-                    }
-
+                    posChecked = this.checkPosition(playerPos);
                 }
-                else
+                catch(OutOfBoundPositionException e)
                 {
-                    try
-                    {
-                        playerPos = this.playerTwo.askPosition();
-                    }
-                    catch (OutOfBoundPositionException e)
-                    {
-                        System.out.println(e.getMessage());
-                    }
+                    System.out.println(e.getMessage());
                 }
 
             }
-            while (this.checkPosition(playerPos) == false);
+            while (posChecked == false);
 
-            // TODO (fix) (same as previous)
-            if (playedPlayer == 2)
+            // TODO (fixed) (same as previous)
+            
+            placeMark(playerPos, this.TAB_MARK[playedPlayer]);
+            round--;
+            if (playedPlayer == 0 )
             {
-                placeMark(playerPos, CIRCLE);
-                playedPlayer--;
-                round--;
+                playedPlayer++;
             }
             else
             {
-                placeMark(playerPos, CROSS);
-                playedPlayer++;
-                round--;
-
+                playedPlayer--;
             }
+            
+
+            
         }
-        System.out.println("La victoire revient au joueur : " + this.winner + " en " + (9 - round) + " rounds");
+     
     }
 
     // TODO (fixed) finish writing comment
@@ -149,11 +155,17 @@ public class TicTacToe
      * @param position
      *            choose by player
      * @return boolean
+     * @throws OutOfBoundPositionException 
      */
 
-    private boolean checkPosition(Position position)
+    private boolean checkPosition(Position position) throws OutOfBoundPositionException
     {
-        return (this.grid[position.getRow()][position.getColumn()] == NOTHING);
+       
+        if (position.getRow() * position.getColumn() < 0 || position.getRow() * position.getColumn() > 4)
+            throw new OutOfBoundPositionException(position);
+        else
+        {
+            return (this.grid[position.getRow()][position.getColumn()] == NOTHING);}
     }
 
     /**
@@ -164,17 +176,18 @@ public class TicTacToe
     private boolean isCurrentPlayerHasWon()
     {
         boolean victory = false;
+        int winner;
         int vic;
         int i, j = 0;
 
         for (i = 0; i < NUMBER_OF_LINES; i++)
         {
             vic = this.grid[i][j] * this.grid[i][j + 1] * this.grid[i][j + 2];
-            // TODO (fix) declare hard-coded values as constants
-            if (vic == 1 || vic == 8)
+            // TODO (fixed) declare hard-coded values as constants
+            if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
             {
                 victory = true;              
-                this.winner = this.grid[i][j];
+                winner = this.grid[i][j];
                 return victory;
             }
         }
@@ -182,10 +195,10 @@ public class TicTacToe
         for (j = 0; j < NUMBER_OF_COLUMNS; j++)
         {
             vic = this.grid[i][j] * this.grid[i + 1][j] * this.grid[i + 2][j];
-            if (vic == 1 || vic == 8)
+            if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
             {
                 victory = true;
-                this.winner = this.grid[i][j];
+                winner = this.grid[i][j];
                 return victory;
             }
         }
@@ -193,23 +206,23 @@ public class TicTacToe
         i = 0;
         j = 0;
         vic = this.grid[i][j] * this.grid[i + 1][j + 1] * this.grid[i + 2][j + 2];
-        if (vic == 1 || vic == 8)
+        if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
         {
             victory = true;
-            this.winner = this.grid[i][j];
+            winner = this.grid[i][j];
             return victory;
         }
         i = 0;
         j = 2;
         vic = this.grid[i][j] * this.grid[i + 1][j - 1] * this.grid[i + 2][j - 2];
-        if (vic == 1 || vic == 8)
+        if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
         {
             victory = true;
-            this.winner = this.grid[i][j];
+            winner = this.grid[i][j];
             return victory;
         }
 
-        this.winner = NOTHING;
+        winner = NOTHING;
         return victory;
 
     }
@@ -228,5 +241,6 @@ public class TicTacToe
         System.out.println("(" + position.getRow() + "," + position.getColumn() + ")");
 
     }
+    
 
 }

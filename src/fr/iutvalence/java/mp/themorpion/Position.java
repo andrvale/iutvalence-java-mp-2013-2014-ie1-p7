@@ -1,9 +1,9 @@
 package fr.iutvalence.java.mp.themorpion;
 
-// TODO (fix) rewrite comment (more generic)
+// TODO (fixed) rewrite comment (more generic)
 /**
  * 
- * This class describes positionning on the grid
+ * This class describes a position
  * 
  * @author andrvale
  * 
@@ -11,16 +11,17 @@ package fr.iutvalence.java.mp.themorpion;
 
 public class Position
 {
-    // TODO (fix) rewrite comment (wrong description)
+    // TODO (fixed) rewrite comment (wrong description)
     /**
-     * integer corresponding number of row of the grid
+     * row of the position
      */
     private int row;
 
-    // TODO (fix) rewrite comment (wrong description)
+    // TODO (fixed) rewrite comment (wrong description)
     /**
-     * integer corresponding number of column of the grid
-     */
+     * 
+     * column of the position    
+     *  */
     private int column;
 
     /**
@@ -37,8 +38,9 @@ public class Position
         this.column = column;
     }
 
-    // TODO (fix) finish writing comment (missing general description)
+    // TODO (fixed) finish writing comment (missing general description)
     /**
+     * Return row of position
      * @return integer corresponding to row of position
      */
     public int getRow()
@@ -47,18 +49,20 @@ public class Position
     }
 
     /**
+     * Return column of position
      * @return integer corresponding to column of position
      */
-    // TODO (fix) finish writing comment (missing general description)
+    // TODO (fixed) finish writing comment (missing general description)
     public int getColumn()
     {
         return this.column;
 
     }
 
-    // TODO (fix) finish writing comment (say what the string looks like)
+    // TODO (fixed) finish writing comment (say what the string looks like)
     /**
      * Redefinition of toString
+     * example : (row,column)
      * 
      * @return String
      */

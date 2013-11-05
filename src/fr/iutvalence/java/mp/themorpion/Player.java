@@ -21,26 +21,16 @@ public class Player
      * @return position wanted by the player
      * 
      */
-    public Position askPosition() throws OutOfBoundPositionException
+    public Position askPosition()
     {
         int randColumn;
         int randLine;
         Random rand = new Random();
         randColumn = rand.nextInt(TicTacToe.NUMBER_OF_COLUMNS);
         randLine = rand.nextInt(TicTacToe.NUMBER_OF_LINES);
-
         Position pos = new Position(randLine, randColumn);
 
-        {
-            if (pos.getRow() * pos.getColumn() < 0 || pos.getRow() * pos.getColumn() > 4)
-                throw new OutOfBoundPositionException(pos);
-            else
-            {
-
-                return pos;
-
-            }
-        }
+        return pos;
 
     }
 }
