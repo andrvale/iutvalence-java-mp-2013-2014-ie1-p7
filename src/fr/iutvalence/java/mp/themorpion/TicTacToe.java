@@ -115,6 +115,7 @@ public class TicTacToe
             do
             {   
                 
+                
                 playerPos = this.tabPlayer[playedPlayer].askPosition();
                 System.out.println("###"+playerPos);
                 try 

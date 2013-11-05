@@ -9,6 +9,7 @@ package fr.iutvalence.java.mp.themorpion;
  * This class is the main class which allow to launch our programm
  * 
  */
+
 public class Main
 {
     // TODO (fixed) finish writing comment

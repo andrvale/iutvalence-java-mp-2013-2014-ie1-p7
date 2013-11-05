@@ -21,6 +21,7 @@ public class Player
      * @return position wanted by the player
      * 
      */
+    
     public Position askPosition()
     {
         int randColumn;

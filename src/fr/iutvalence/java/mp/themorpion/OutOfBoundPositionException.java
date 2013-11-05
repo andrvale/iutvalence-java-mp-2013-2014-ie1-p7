@@ -13,6 +13,7 @@ class OutOfBoundPositionException extends Exception
         this.position = position;
     }
 
+    
     /*
      * (non-Javadoc)
      * 
