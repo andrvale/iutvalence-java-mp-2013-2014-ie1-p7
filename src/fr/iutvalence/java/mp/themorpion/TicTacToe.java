@@ -56,7 +56,6 @@ public class TicTacToe
     // TODO (fixed) replacing these two fields by an array should simplify the
     // rest of the code
     
-    private Player[] tabPlayer = new Player[2];
     /**
      * first player
      */
@@ -67,6 +66,9 @@ public class TicTacToe
      */
 
    // private Player playerTwo;
+    
+    private Player[] tabPlayer = new Player[2];
+
 
     /**
      * Either NOTHING, either CROSS, either CIRCLE
@@ -117,22 +119,21 @@ public class TicTacToe
                 
                 
                 playerPos = this.tabPlayer[playedPlayer].askPosition();
-                System.out.println("###"+playerPos);
-                try 
-                {
-                    posChecked = this.checkPosition(playerPos);
-                }
-                catch(OutOfBoundPositionException e)
-                {
-                    System.out.println(e.getMessage());
-                }
+                posChecked = this.checkPosition(playerPos);
+                
 
             }
             while (posChecked == false);
 
             // TODO (fixed) (same as previous)
-            
-            placeMark(playerPos, this.TAB_MARK[playedPlayer]);
+            try
+            {
+                placeMark(playerPos, this.TAB_MARK[playedPlayer]);
+            }
+            catch(PositionOutOfBoundsException e)
+            {
+                System.out.println(e.getMessage());
+            }
             round--;
             if (playedPlayer == 0 )
             {
@@ -146,7 +147,12 @@ public class TicTacToe
 
             
         }
-     
+        System.out.println(gridToString());
+        printWinner(playedPlayer, round);
+        //System.out.println("The winner is : "+ printWinner()  + " en "+(9-round)+"rounds"); 
+        
+        
+   
     }
 
     // TODO (fixed) finish writing comment
@@ -156,17 +162,16 @@ public class TicTacToe
      * @param position
      *            choose by player
      * @return boolean
-     * @throws OutOfBoundPositionException 
+     * @throws PositionOutOfBoundsException 
      */
 
-    private boolean checkPosition(Position position) throws OutOfBoundPositionException
+    private boolean checkPosition(Position position)
     {
-       
-        if (position.getRow() * position.getColumn() < 0 || position.getRow() * position.getColumn() > 4)
-            throw new OutOfBoundPositionException(position);
-        else
-        {
-            return (this.grid[position.getRow()][position.getColumn()] == NOTHING);}
+        if(position.getRow() > 2 || position.getRow() < 0 || position.getColumn() < 0 || position.getColumn() > 2)
+            return false;
+        
+        return (this.grid[position.getRow()][position.getColumn()] == NOTHING);
+        
     }
 
     /**
@@ -235,13 +240,92 @@ public class TicTacToe
      *            choose by player
      * @param mark
      *            value of player
+     * @throws PositionOutOfBoundsException 
      */
-    private void placeMark(Position position, int mark)
+    private void placeMark(Position position, int mark) throws PositionOutOfBoundsException
     {
-        this.grid[position.getRow()][position.getColumn()] = mark;
-        System.out.println("(" + position.getRow() + "," + position.getColumn() + ")");
+        if (!checkPosition(position))
+        {
+            throw new PositionOutOfBoundsException(position);
+        }
+        else
+        {
+            this.grid[position.getRow()][position.getColumn()] = mark;
+            System.out.println("Le joueur " + mark + " a joué : (" + position.getRow() + "," + position.getColumn() + ")");
+            
+          
+
+        }
 
     }
     
+    /**
+     * 
+     * Return the complete grid as a string
+     * @return StringOfGrid
+     *              
+     * 
+     */
 
+    private String gridToString()
+    {
+        String stringOfGrid = "\n"; 
+        stringOfGrid = stringOfGrid + " ___________\n";
+        for (int lineNumber = 0; lineNumber < NUMBER_OF_LINES; lineNumber++)
+        {
+            stringOfGrid = stringOfGrid +"|";
+            for (int columnNumber = 0; columnNumber < NUMBER_OF_COLUMNS; columnNumber++)
+            {
+                if (this.grid[lineNumber][columnNumber] == 2)
+                {
+                  stringOfGrid = stringOfGrid + "_O_|";
+
+                }
+                else if (this.grid[lineNumber][columnNumber] == 1)
+                {
+                    stringOfGrid = stringOfGrid + "_X_|";
+                }
+                else
+                {
+                    stringOfGrid = stringOfGrid + "___|";
+                }
+            }
+            stringOfGrid = stringOfGrid +"\n";
+    }
+        return stringOfGrid;
+        
+    }
+    /**
+     * 
+     * Print on console the winner of the game
+     * @param winner 
+     *              player who won
+     * @param rounds 
+     *              rounds to finish the game
+     * 
+     * 
+     */
+       
+    private void printWinner(int winner, int rounds)
+    {
+        String strResult = "";
+        if(rounds != 0)
+        {
+            strResult = strResult + "The winner is : the player "+ (winner+1);
+        }       
+        else
+        {
+            if(this.isCurrentPlayerHasWon())
+            {
+                strResult = strResult + "The winner is : the player "+ (winner+1);
+            }
+            else
+            {
+                strResult = strResult + "There is no Winnner";
+            }
+                
+        }
+        System.out.println(strResult);
+    }
+    
 }

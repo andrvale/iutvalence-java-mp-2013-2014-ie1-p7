@@ -1,6 +1,6 @@
 package fr.iutvalence.java.mp.themorpion;
 
-class OutOfBoundPositionException extends Exception
+class PositionOutOfBoundsException extends Exception
 {
 
     private final Position position;
@@ -8,7 +8,7 @@ class OutOfBoundPositionException extends Exception
     /**
      * @param position
      */
-    OutOfBoundPositionException(Position position)
+    PositionOutOfBoundsException(Position position)
     {
         this.position = position;
     }
@@ -23,7 +23,7 @@ class OutOfBoundPositionException extends Exception
     public String getMessage()
     {
         // TODO Auto-generated method stub
-        return "la case " + this.position + "n'existe pas!";
+        return "la case " + this.position + " n'existe pas!";
     }
 
 }
