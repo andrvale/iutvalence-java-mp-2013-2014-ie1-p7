@@ -13,17 +13,15 @@ import java.util.Random;
 public class Player
 {
 
-    // TODO (fixed) this method should not test bounds nor throw an exception
-    // (this should be done in TicTacToe)
     /**
      * Check if position wanted by the player is between 1 and 9
      * 
      * @return position wanted by the player
      * 
-     */
-    
+     */    
     public Position askPosition()
     {
+        // TODO (fix) simplify this
         int randColumn;
         int randLine;
         Random rand = new Random();

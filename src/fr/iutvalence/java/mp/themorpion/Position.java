@@ -1,6 +1,5 @@
 package fr.iutvalence.java.mp.themorpion;
 
-// TODO (fixed) rewrite comment (more generic)
 /**
  * 
  * This class describes a position
@@ -11,13 +10,11 @@ package fr.iutvalence.java.mp.themorpion;
 
 public class Position
 {
-    // TODO (fixed) rewrite comment (wrong description)
     /**
      * row of the position
      */
     private int row;
 
-    // TODO (fixed) rewrite comment (wrong description)
     /**
      * 
      * column of the position    
@@ -38,7 +35,6 @@ public class Position
         this.column = column;
     }
 
-    // TODO (fixed) finish writing comment (missing general description)
     /**
      * Return row of position
      * @return integer corresponding to row of position
@@ -52,14 +48,12 @@ public class Position
      * Return column of position
      * @return integer corresponding to column of position
      */
-    // TODO (fixed) finish writing comment (missing general description)
     public int getColumn()
     {
         return this.column;
 
     }
 
-    // TODO (fixed) finish writing comment (say what the string looks like)
     /**
      * Redefinition of toString
      * example : (row,column)

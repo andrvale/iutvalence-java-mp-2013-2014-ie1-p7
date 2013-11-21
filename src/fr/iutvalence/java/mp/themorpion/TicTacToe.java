@@ -25,17 +25,16 @@ public class TicTacToe
      */
     public final static int NOTHING = 0;
 
-    // TODO (fixed) write comment
     /**
      * Constant corresponding to number of lines
      */
     public static final int NUMBER_OF_LINES = 3;
 
-    // TODO (fixed) write comment
     /**
      * Constant corresponding to number of columns
      */
     public static final int NUMBER_OF_COLUMNS = 3;
+
     /**
      * Constant corresponding to player1 victory
      */
@@ -52,34 +51,14 @@ public class TicTacToe
      * 
      */
     private final int[][] grid;
-
-    // TODO (fixed) replacing these two fields by an array should simplify the
-    // rest of the code
     
-    /**
-     * first player
-     */
-   // private Player playerOne;
-
-    /**
-     * second player
-     */
-
-   // private Player playerTwo;
-    
-    private Player[] tabPlayer = new Player[2];
-
-
-    /**
-     * Either NOTHING, either CROSS, either CIRCLE
-     */
-    // TODO (fixed) looks like a local variable instead of a field
-   
+    // TODO (fix) write comment
+    // TODO (fix) initialize this field in constructor
+    private Player[] players = new Player[2]; 
 
     /**
      * It initializes a new game A void grid is create
      */
-
     public TicTacToe()
     {
         this.grid = new int[NUMBER_OF_LINES][NUMBER_OF_COLUMNS];
@@ -92,11 +71,8 @@ public class TicTacToe
             }
         }
 
-        this.tabPlayer[0] = new Player();
-        this.tabPlayer[1]= new Player();
-
-        // TODO (fixed) remove this debug message
-        //System.out.println("New game of TicTacToe !");
+        this.players[0] = new Player();
+        this.players[1]= new Player();
     }
 
     /**
@@ -111,23 +87,18 @@ public class TicTacToe
         int round = NUMBER_OF_LINES * NUMBER_OF_COLUMNS;
         int playedPlayer = 0;
         while (!(this.isCurrentPlayerHasWon()) && round > 0)
-        {
-            // TODO (fixed) if you can not simplify this, move it to an external method
-            // to make this one more readable
+        {          
             do
             {   
-                
-                
-                playerPos = this.tabPlayer[playedPlayer].askPosition();
-                posChecked = this.checkPosition(playerPos);
-                
-
+                playerPos = this.players[playedPlayer].askPosition();
+                posChecked = this.checkPosition(playerPos);        
             }
+            // TODO (fix) simplify the test
             while (posChecked == false);
-
-            // TODO (fixed) (same as previous)
+           
             try
             {
+                // TODO (fix) fix this warning
                 placeMark(playerPos, this.TAB_MARK[playedPlayer]);
             }
             catch(PositionOutOfBoundsException e)
@@ -150,12 +121,8 @@ public class TicTacToe
         System.out.println(gridToString());
         printWinner(playedPlayer, round);
         //System.out.println("The winner is : "+ printWinner()  + " en "+(9-round)+"rounds"); 
-        
-        
-   
     }
 
-    // TODO (fixed) finish writing comment
     /**
      * Return true if we can put a mark in the grid
      * 
@@ -182,6 +149,7 @@ public class TicTacToe
     private boolean isCurrentPlayerHasWon()
     {
         boolean victory = false;
+        // TODO (fix) fix this warning
         int winner;
         int vic;
         int i, j = 0;
@@ -189,7 +157,6 @@ public class TicTacToe
         for (i = 0; i < NUMBER_OF_LINES; i++)
         {
             vic = this.grid[i][j] * this.grid[i][j + 1] * this.grid[i][j + 2];
-            // TODO (fixed) declare hard-coded values as constants
             if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
             {
                 victory = true;              
@@ -233,6 +200,7 @@ public class TicTacToe
 
     }
 
+    // TODO (fix) finish writing comment
     /**
      * Place a mark in the grid on the wanted position
      * 
