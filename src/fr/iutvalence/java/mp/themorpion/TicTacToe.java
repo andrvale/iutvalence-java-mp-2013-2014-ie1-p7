@@ -13,7 +13,7 @@ public class TicTacToe
     /**
      *Constant corresponding to an array of mark's values
      */
-    public final static int[] TAB_MARK = new int[]{1,2};
+    public final int[] TAB_MARK = new int[]{1,2};
 
     /**
      * Constant corresponding to cross mark
@@ -52,15 +52,20 @@ public class TicTacToe
      */
     private final int[][] grid;
     
-    // TODO (fix) write comment
-    // TODO (fix) initialize this field in constructor
-    private Player[] players = new Player[2]; 
+    /**
+     * Arrow of player
+     */
+    // TODO (fixed) write comment
+    // TODO (fixed) initialize this field in constructor
+    private Player[] players; 
 
     /**
      * It initializes a new game A void grid is create
+     * @param player player
      */
-    public TicTacToe()
+    public TicTacToe(Player[] player)
     {
+        this.players  = player;
         this.grid = new int[NUMBER_OF_LINES][NUMBER_OF_COLUMNS];
 
         for (int lineNumber = 0; lineNumber < NUMBER_OF_LINES; lineNumber++)
@@ -71,8 +76,8 @@ public class TicTacToe
             }
         }
 
-        this.players[0] = new Player();
-        this.players[1]= new Player();
+      
+        this.play();
     }
 
     /**
@@ -93,12 +98,12 @@ public class TicTacToe
                 playerPos = this.players[playedPlayer].askPosition();
                 posChecked = this.checkPosition(playerPos);        
             }
-            // TODO (fix) simplify the test
-            while (posChecked == false);
+            // TODO (fixed) simplify the test
+            while (!posChecked);
            
             try
             {
-                // TODO (fix) fix this warning
+                // TODO (fixed) fix this warning
                 placeMark(playerPos, this.TAB_MARK[playedPlayer]);
             }
             catch(PositionOutOfBoundsException e)
@@ -129,7 +134,6 @@ public class TicTacToe
      * @param position
      *            choose by player
      * @return boolean
-     * @throws PositionOutOfBoundsException 
      */
 
     private boolean checkPosition(Position position)
@@ -149,8 +153,8 @@ public class TicTacToe
     private boolean isCurrentPlayerHasWon()
     {
         boolean victory = false;
-        // TODO (fix) fix this warning
-        int winner;
+        // TODO (fixed) fix this warning
+       
         int vic;
         int i, j = 0;
 
@@ -160,7 +164,6 @@ public class TicTacToe
             if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
             {
                 victory = true;              
-                winner = this.grid[i][j];
                 return victory;
             }
         }
@@ -171,7 +174,7 @@ public class TicTacToe
             if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
             {
                 victory = true;
-                winner = this.grid[i][j];
+             
                 return victory;
             }
         }
@@ -182,7 +185,7 @@ public class TicTacToe
         if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
         {
             victory = true;
-            winner = this.grid[i][j];
+      
             return victory;
         }
         i = 0;
@@ -191,16 +194,16 @@ public class TicTacToe
         if (vic == PLAYER1_WIN || vic == PLAYER2_WIN)
         {
             victory = true;
-            winner = this.grid[i][j];
+          
             return victory;
         }
 
-        winner = NOTHING;
+      
         return victory;
 
     }
 
-    // TODO (fix) finish writing comment
+    // TODO (fixed) finish writing comment
     /**
      * Place a mark in the grid on the wanted position
      * 
@@ -208,7 +211,7 @@ public class TicTacToe
      *            choose by player
      * @param mark
      *            value of player
-     * @throws PositionOutOfBoundsException 
+     * @throws PositionOutOfBoundsException return exception
      */
     private void placeMark(Position position, int mark) throws PositionOutOfBoundsException
     {
@@ -220,10 +223,12 @@ public class TicTacToe
         {
             this.grid[position.getRow()][position.getColumn()] = mark;
             System.out.println("Le joueur " + mark + " a joué : (" + position.getRow() + "," + position.getColumn() + ")");
-            
+            System.out.println(gridToString());
+
           
 
         }
+        
 
     }
     

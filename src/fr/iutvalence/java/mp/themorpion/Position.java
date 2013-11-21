@@ -20,7 +20,8 @@ public class Position
      * column of the position    
      *  */
     private int column;
-
+    
+    
     /**
      * Constructor of position class with over-parameters
      * 

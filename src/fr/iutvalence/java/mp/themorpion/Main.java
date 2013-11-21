@@ -15,11 +15,14 @@ public class Main
     /**
      * main function which allow to launch our programm
      * it is the first function execute when we run the prgramm
-     * @param args
+     * @param args args of main
      */
     public static void main(String[] args)
     {
-        new TicTacToe().play();
+        Player[]  a = new Player[2];
+        a[0] = new Player_random();
+        a[1] = new Player_keyboard();
+        new TicTacToe(a);
 
     }
 
