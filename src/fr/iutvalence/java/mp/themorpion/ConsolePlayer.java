@@ -6,25 +6,22 @@ import java.util.Scanner;
  * @author andrvale
  *
  */
-public class Player_keyboard implements Player
+public class ConsolePlayer implements Player
 {
+    // TODO (fix) write comment
     public final static Position[] positionsFromCellNumber = new Position[] 
             { new Position(2,0), new Position(2,1), new Position(2,2),
               new Position(1,0), new Position(1,1), new Position(1,2),
               new Position(0,0), new Position(0,1), new Position(0,2)
  
             };
+    
     /**
-     * Ask a position to the player on the numeric keyboard
-     * 
-     * @return position wanted by the player
-     * 
-     */    
-    /* (non-Javadoc)
      * @see fr.iutvalence.java.mp.themorpion.Player#askPosition()
      */
     public Position askPosition()
     {
+        // TODO (fix) clean unused code
         // int column, line;
         Position pos;
         Scanner sc = new Scanner(System.in);

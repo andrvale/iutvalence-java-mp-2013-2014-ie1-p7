@@ -20,8 +20,8 @@ public class Main
     public static void main(String[] args)
     {
         Player[]  a = new Player[2];
-        a[0] = new Player_random();
-        a[1] = new Player_keyboard();
+        a[0] = new RandomPlayer();
+        a[1] = new ConsolePlayer();
         new TicTacToe(a);
 
     }

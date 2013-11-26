@@ -13,12 +13,8 @@ public class TicTacToe
     /**
      *Constant corresponding to an array of mark's values
      */
+    // TODO (fix) rename field
     public final int[] TAB_MARK = new int[]{1,2};
-
-    /**
-     * Constant corresponding to cross mark
-     */
-    //public final static int CROSS = 1;
 
     /**
      * Constant corresponding to VOID mark
@@ -39,6 +35,7 @@ public class TicTacToe
      * Constant corresponding to player1 victory
      */
     public static final int PLAYER1_WIN = 1;
+    
     /**
      * Constant corresponding to player2 victory
      */
@@ -52,15 +49,15 @@ public class TicTacToe
      */
     private final int[][] grid;
     
+    // TODO (fix) fix comment (arrow ?)
     /**
      * Arrow of player
-     */
-    // TODO (fixed) write comment
-    // TODO (fixed) initialize this field in constructor
+     */  
     private Player[] players; 
 
+    // TODO (fix) detail comment
     /**
-     * It initializes a new game A void grid is create
+     * It initializes a new game A void grid is created
      * @param player player
      */
     public TicTacToe(Player[] player)
@@ -76,6 +73,8 @@ public class TicTacToe
             }
         }
 
+        // TODO (fix) the constructor must return quickly.
+        // calling  constructor allows to get a new instance, not to play the game
       
         this.play();
     }
@@ -98,12 +97,10 @@ public class TicTacToe
                 playerPos = this.players[playedPlayer].askPosition();
                 posChecked = this.checkPosition(playerPos);        
             }
-            // TODO (fixed) simplify the test
             while (!posChecked);
            
             try
             {
-                // TODO (fixed) fix this warning
                 placeMark(playerPos, this.TAB_MARK[playedPlayer]);
             }
             catch(PositionOutOfBoundsException e)
@@ -111,6 +108,7 @@ public class TicTacToe
                 System.out.println(e.getMessage());
             }
             round--;
+            // TODO (fix) use modulus
             if (playedPlayer == 0 )
             {
                 playedPlayer++;
@@ -153,7 +151,6 @@ public class TicTacToe
     private boolean isCurrentPlayerHasWon()
     {
         boolean victory = false;
-        // TODO (fixed) fix this warning
        
         int vic;
         int i, j = 0;
@@ -203,7 +200,6 @@ public class TicTacToe
 
     }
 
-    // TODO (fixed) finish writing comment
     /**
      * Place a mark in the grid on the wanted position
      * 
@@ -225,11 +221,7 @@ public class TicTacToe
             System.out.println("Le joueur " + mark + " a joué : (" + position.getRow() + "," + position.getColumn() + ")");
             System.out.println(gridToString());
 
-          
-
-        }
-        
-
+        }       
     }
     
     /**
@@ -300,5 +292,4 @@ public class TicTacToe
         }
         System.out.println(strResult);
     }
-    
 }
