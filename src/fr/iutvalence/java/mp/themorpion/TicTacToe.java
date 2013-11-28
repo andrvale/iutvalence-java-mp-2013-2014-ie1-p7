@@ -11,10 +11,10 @@ package fr.iutvalence.java.mp.themorpion;
 public class TicTacToe
 {
     /**
-     *Constant corresponding to an array of mark's values
+     *Constant corresponding to an array of the number of the player
      */
-    // TODO (fix) rename field
-    public final int[] TAB_MARK = new int[]{1,2};
+    // TODO (fixed) rename field
+    public final int[] TAB_PLAYER = new int[]{1,2};
 
     /**
      * Constant corresponding to VOID mark
@@ -49,9 +49,9 @@ public class TicTacToe
      */
     private final int[][] grid;
     
-    // TODO (fix) fix comment (arrow ?)
+    // TODO (fixed) fix comment (arrow ?)
     /**
-     * Arrow of player
+     * Array of player
      */  
     private Player[] players; 
 
@@ -60,9 +60,16 @@ public class TicTacToe
      * It initializes a new game A void grid is created
      * @param player player
      */
-    public TicTacToe(Player[] player)
+    private Display gameDisplay;
+    
+    /**
+     * @param player
+     * @param display
+     */
+    public TicTacToe(Player[] player, Display display)
     {
         this.players  = player;
+        this.gameDisplay = display;
         this.grid = new int[NUMBER_OF_LINES][NUMBER_OF_COLUMNS];
 
         for (int lineNumber = 0; lineNumber < NUMBER_OF_LINES; lineNumber++)
@@ -73,10 +80,10 @@ public class TicTacToe
             }
         }
 
-        // TODO (fix) the constructor must return quickly.
+        // TODO (fixed) the constructor must return quickly.
         // calling  constructor allows to get a new instance, not to play the game
       
-        this.play();
+        
     }
 
     /**
@@ -89,7 +96,8 @@ public class TicTacToe
         Position playerPos = null;
         boolean posChecked = false;
         int round = NUMBER_OF_LINES * NUMBER_OF_COLUMNS;
-        int playedPlayer = 0;
+        int playedPlayer = 1;
+
         while (!(this.isCurrentPlayerHasWon()) && round > 0)
         {          
             do
@@ -101,28 +109,24 @@ public class TicTacToe
            
             try
             {
-                placeMark(playerPos, this.TAB_MARK[playedPlayer]);
+                placeMark(playerPos, this.TAB_PLAYER[playedPlayer]);
             }
             catch(PositionOutOfBoundsException e)
             {
                 System.out.println(e.getMessage());
             }
             round--;
-            // TODO (fix) use modulus
-            if (playedPlayer == 0 )
-            {
-                playedPlayer++;
-            }
-            else
-            {
-                playedPlayer--;
-            }
+            // TODO (fixed) use modulus
+            playedPlayer =(playedPlayer + 1)%2;
+           
+           
             
 
             
         }
-        System.out.println(gridToString());
-        printWinner(playedPlayer, round);
+        this.gameDisplay.displayGrid(this.grid);
+        //System.out.println(gridToString());
+        this.gameDisplay.printWinner((playedPlayer%2), round, this.isCurrentPlayerHasWon());
         //System.out.println("The winner is : "+ printWinner()  + " en "+(9-round)+"rounds"); 
     }
 
@@ -218,78 +222,12 @@ public class TicTacToe
         else
         {
             this.grid[position.getRow()][position.getColumn()] = mark;
-            System.out.println("Le joueur " + mark + " a joué : (" + position.getRow() + "," + position.getColumn() + ")");
-            System.out.println(gridToString());
+          //  System.out.println("Le joueur " + mark + " a joué : (" + position.getRow() + "," + position.getColumn() + ")");
+        this.gameDisplay.displayGrid(this.grid);
+            // System.out.println(gridToString());
+            
 
         }       
-    }
-    
-    /**
-     * 
-     * Return the complete grid as a string
-     * @return StringOfGrid
-     *              
-     * 
-     */
-
-    private String gridToString()
-    {
-        String stringOfGrid = "\n"; 
-        stringOfGrid = stringOfGrid + " ___________\n";
-        for (int lineNumber = 0; lineNumber < NUMBER_OF_LINES; lineNumber++)
-        {
-            stringOfGrid = stringOfGrid +"|";
-            for (int columnNumber = 0; columnNumber < NUMBER_OF_COLUMNS; columnNumber++)
-            {
-                if (this.grid[lineNumber][columnNumber] == 2)
-                {
-                  stringOfGrid = stringOfGrid + "_O_|";
-
-                }
-                else if (this.grid[lineNumber][columnNumber] == 1)
-                {
-                    stringOfGrid = stringOfGrid + "_X_|";
-                }
-                else
-                {
-                    stringOfGrid = stringOfGrid + "___|";
-                }
-            }
-            stringOfGrid = stringOfGrid +"\n";
-    }
-        return stringOfGrid;
-        
-    }
-    /**
-     * 
-     * Print on console the winner of the game
-     * @param winner 
-     *              player who won
-     * @param rounds 
-     *              rounds to finish the game
-     * 
-     * 
-     */
-       
-    private void printWinner(int winner, int rounds)
-    {
-        String strResult = "";
-        if(rounds != 0)
-        {
-            strResult = strResult + "The winner is : the player "+ (winner+1);
-        }       
-        else
-        {
-            if(this.isCurrentPlayerHasWon())
-            {
-                strResult = strResult + "The winner is : the player "+ (winner+1);
-            }
-            else
-            {
-                strResult = strResult + "There is no Winnner";
-            }
-                
-        }
-        System.out.println(strResult);
     }
 }
+    

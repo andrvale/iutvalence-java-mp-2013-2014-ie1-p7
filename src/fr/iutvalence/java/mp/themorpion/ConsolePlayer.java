@@ -8,7 +8,10 @@ import java.util.Scanner;
  */
 public class ConsolePlayer implements Player
 {
-    // TODO (fix) write comment
+    /**
+     * Array of position which makes correspond the numeric keyboard and the grid 
+     */
+    // TODO (fixed) write comment
     public final static Position[] positionsFromCellNumber = new Position[] 
             { new Position(2,0), new Position(2,1), new Position(2,2),
               new Position(1,0), new Position(1,1), new Position(1,2),
@@ -21,15 +24,12 @@ public class ConsolePlayer implements Player
      */
     public Position askPosition()
     {
-        // TODO (fix) clean unused code
-        // int column, line;
-        Position pos;
+        // TODO (fix) clRandomPlayerean unused code
+  
         Scanner sc = new Scanner(System.in);
         System.out.println("Veuillez saisir votre position :");
         int cellNumber = sc.nextInt();
-        /*line = p /10;
-        column = p%10;
-        pos = new Position(line, column);*/
+
         if ((cellNumber > 9) ||(cellNumber < 1 )) return new Position(3,3);
         return positionsFromCellNumber[cellNumber-1];
 
