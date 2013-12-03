@@ -13,8 +13,7 @@ public class TicTacToe
     /**
      *Constant corresponding to an array of the number of the player
      */
-    // TODO (fixed) rename field
-    public final int[] TAB_PLAYER = new int[]{1,2};
+    public final int[] PLAYERS_CELL_VALUES = new int[]{1,2};
 
     /**
      * Constant corresponding to VOID mark
@@ -43,32 +42,31 @@ public class TicTacToe
     
     /**
      * This is the representation of the grid of Tic Tac Toe
-     * NUMBER_OF_LINES*NUMBER_OF_COLUMNS cells are available corresponding to
-     * cases of table
+     * size is NUMBER_OF_LINES*NUMBER_OF_COLUMNS
      * 
      */
     private final int[][] grid;
     
-    // TODO (fixed) fix comment (arrow ?)
     /**
-     * Array of player
+     * players
      */  
     private Player[] players; 
 
-    // TODO (fix) detail comment
+    // TODO (fix) fix comment (wrong description)
     /**
      * It initializes a new game A void grid is created
      * @param player player
      */
     private Display gameDisplay;
     
+    // TODO (fix) finish writing comment
     /**
-     * @param player
+     * @param players
      * @param display
      */
-    public TicTacToe(Player[] player, Display display)
+    public TicTacToe(Player[] players, Display display)
     {
-        this.players  = player;
+        this.players  = players;
         this.gameDisplay = display;
         this.grid = new int[NUMBER_OF_LINES][NUMBER_OF_COLUMNS];
 
@@ -79,11 +77,6 @@ public class TicTacToe
                 this.grid[lineNumber][columnNumber] = NOTHING;
             }
         }
-
-        // TODO (fixed) the constructor must return quickly.
-        // calling  constructor allows to get a new instance, not to play the game
-      
-        
     }
 
     /**
@@ -109,20 +102,15 @@ public class TicTacToe
            
             try
             {
-                placeMark(playerPos, this.TAB_PLAYER[playedPlayer]);
+                placeMark(playerPos, this.PLAYERS_CELL_VALUES[playedPlayer]);
             }
             catch(PositionOutOfBoundsException e)
             {
                 System.out.println(e.getMessage());
             }
             round--;
-            // TODO (fixed) use modulus
             playedPlayer =(playedPlayer + 1)%2;
            
-           
-            
-
-            
         }
         this.gameDisplay.displayGrid(this.grid);
         //System.out.println(gridToString());

@@ -2,6 +2,7 @@ package fr.iutvalence.java.mp.themorpion;
 
 import java.util.Random;
 
+// TODO (fix) detail comment
 /**
  * 
  * This class describes a player with his attributes
@@ -11,13 +12,10 @@ import java.util.Random;
  */
 
 public class RandomPlayer implements Player
-{
-
+{    
     /**
-     * Ask a random position to the player     
-     * @return position wanted by the player
-     * 
-     */    
+     * @see fr.iutvalence.java.mp.themorpion.Player#askPosition()
+     */
     public Position askPosition()
     {
         Random rand = new Random();

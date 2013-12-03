@@ -19,12 +19,7 @@ public class Main
      */
     public static void main(String[] args)
     {
-        Display b = new ConsoleDisplay();
-        Player[]  a = new Player[2];
-        a[0] = new RandomPlayer();
-        a[1] = new ConsolePlayer();
-        new TicTacToe(a,b).play();
-
+        Player[] players = new Player[] {new RandomPlayer(), new ConsolePlayer()};
+        new TicTacToe(players,new ConsoleDisplay()).play();
     }
-
 }
