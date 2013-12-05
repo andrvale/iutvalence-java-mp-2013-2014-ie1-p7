@@ -52,17 +52,22 @@ public class TicTacToe
      */  
     private Player[] players; 
 
-    // TODO (fix) fix comment (wrong description)
+    // TODO (fixed) fix comment (wrong description)
+   
     /**
-     * It initializes a new game A void grid is created
-     * @param player player
+     * this is a field which a correspond to a display of a game
+     *  (graphic display or console display)
      */
     private Display gameDisplay;
     
-    // TODO (fix) finish writing comment
+    // TODO (fixed) finish writing comment
     /**
+     * This is the TictacToe class constructor, 
+     *  its takes two parameters
      * @param players
+     *              type of player (a console Player, a random Player...)
      * @param display
+     *              type of display (console display, graphic display...)
      */
     public TicTacToe(Player[] players, Display display)
     {
@@ -113,9 +118,8 @@ public class TicTacToe
            
         }
         this.gameDisplay.displayGrid(this.grid);
-        //System.out.println(gridToString());
         this.gameDisplay.printWinner((playedPlayer%2), round, this.isCurrentPlayerHasWon());
-        //System.out.println("The winner is : "+ printWinner()  + " en "+(9-round)+"rounds"); 
+        
     }
 
     /**
@@ -210,9 +214,8 @@ public class TicTacToe
         else
         {
             this.grid[position.getRow()][position.getColumn()] = mark;
-          //  System.out.println("Le joueur " + mark + " a joué : (" + position.getRow() + "," + position.getColumn() + ")");
-        this.gameDisplay.displayGrid(this.grid);
-            // System.out.println(gridToString());
+            this.gameDisplay.displayGrid(this.grid);
+
             
 
         }       

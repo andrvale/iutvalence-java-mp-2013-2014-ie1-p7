@@ -1,6 +1,10 @@
 package fr.iutvalence.java.mp.themorpion;
 
 // TODO (fix) write comment
+/**
+ * @author andrvale
+ *
+ */
 public class ConsoleDisplay implements Display
 {
 
