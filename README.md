@@ -28,6 +28,6 @@ To play in console display : The numeric keypad (1 to 9) represent cases of grid
                                             -----------                      -----------------------
                                     
 
-To play in window display : 
+To play in window display : You must click on a wanted case with the mouse when it's your turn.
 
 The grid is create as a 2 dimensions table.
