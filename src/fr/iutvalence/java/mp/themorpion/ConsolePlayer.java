@@ -2,9 +2,11 @@ package fr.iutvalence.java.mp.themorpion;
 
 import java.util.Scanner;
 
-// TODO (fix) finish writing comment
+// TODO (fixed finish writing comment
 /**
- * @author andrvale
+ * @author André Valentin
+ *         Lamine SERRADJ
+ * This class describes a player who plays in numeric keyboard implemented by the Player interface
  * 
  */
 public class ConsolePlayer implements Player

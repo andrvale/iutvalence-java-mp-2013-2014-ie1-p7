@@ -2,12 +2,12 @@ package fr.iutvalence.java.mp.themorpion;
 
 import java.util.Random;
 
-// TODO (fix) detail comment
+// TODO (fixed) detail comment
 /**
  * 
- * This class describes a player with his attributes
- * 
- * @author andrvale
+ * @author André Valentin
+ *         Lamine SERRADJ
+ * This class represents a random player implemented by the Player interface
  * 
  */
 

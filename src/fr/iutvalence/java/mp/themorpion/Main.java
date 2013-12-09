@@ -5,8 +5,8 @@ package fr.iutvalence.java.mp.themorpion;
 
 /**
  * This class is the main class which allow to launch our programm
- * @author andrvale
- * 
+ * @author André Valentin
+ *         Lamine SERRADJ
  * 
  */
 
@@ -19,8 +19,10 @@ public class Main
      */
     public static void main(String[] args)
     {
-        Display[] display = new Display[] {new ConsoleDisplay(), new WindowDisplay()};
-        Player[] players = new Player[] {new RandomPlayer(), new ConsolePlayer()};
-        new TicTacToe(players,new WindowDisplay()).play();
+        Display displayWin = new WindowDisplay();
+        
+        Display[] display = new Display[] {displayWin, displayWin};
+        Player[] players = new Player[] {(Player) displayWin, (Player) displayWin};
+        new TicTacToe(players,display).play();
     }
 }

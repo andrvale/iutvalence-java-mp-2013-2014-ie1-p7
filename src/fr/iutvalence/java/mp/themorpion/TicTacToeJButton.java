@@ -2,7 +2,9 @@ package fr.iutvalence.java.mp.themorpion;
 
 import javax.swing.JButton;
 
+
 public class TicTacToeJButton extends JButton
+
 {
 
     private Position position;

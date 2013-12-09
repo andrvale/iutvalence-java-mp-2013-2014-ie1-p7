@@ -1,8 +1,11 @@
 package fr.iutvalence.java.mp.themorpion;
 
-// TODO (fix) write comment
+// TODO (fixed) write comment
 /**
- * @author andrvale
+ * 
+ * @author André Valentin
+ *         Lamine SERRADJ
+ * The class represent the display in console mode
  *
  */
 public class ConsoleDisplay implements Display
